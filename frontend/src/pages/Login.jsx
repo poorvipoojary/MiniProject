@@ -1,29 +1,29 @@
-import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import AuthContext from '../context/AuthContext';
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  
+
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     const result = await login(username, password);
-    
+
     if (result.success) {
-      navigate('/');
+      navigate("/");
     } else {
       setError(result.message);
     }
-    
+
     setLoading(false);
   };
 
@@ -31,7 +31,9 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-500 to-primary-700">
       <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">LearnGuardian</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            LearnGuardian
+          </h1>
           <p className="text-gray-600">Academic Monitoring System</p>
         </div>
 
@@ -71,22 +73,12 @@ const Login = () => {
             className="w-full btn-primary py-3"
             disabled={loading}
           >
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
-
-        <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-          <p className="text-sm text-gray-600 font-semibold mb-2">Demo Accounts:</p>
-          <div className="space-y-1 text-xs text-gray-700">
-            <p><span className="font-medium">Student:</span> student1 / password123</p>
-            <p><span className="font-medium">Teacher:</span> teacher1 / password123</p>
-            <p><span className="font-medium">Parent:</span> parent1 / password123</p>
-          </div>
-        </div>
       </div>
     </div>
   );
 };
 
 export default Login;
-
